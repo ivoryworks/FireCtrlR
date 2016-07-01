@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "879282358471",
+    "firebase_url": "https://firectrlr.firebaseio.com",
+    "project_id": "firectrlr",
+    "storage_bucket": "firectrlr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879282358471:android:d78863ada815ae5d",
+        "android_client_info": {
+          "package_name": "com.ivoryworks.firectrlr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879282358471-qidvj6im1lq4p6i2rauodqam9362cish.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoCZ47Vk991ZqqNDi-eo48xn0sMA_1s1A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
