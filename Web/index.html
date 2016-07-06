@@ -62,7 +62,18 @@
     <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
     <script src="./scripts/init-app.js"></script>
     <script>
-      initApp(firebase);
+      initApp(firebase);  // 初期化
+      var lastTime = 0;
+      firebase.database().ref('time_stamp').on('value', function(snapshot) {
+        var currentTime = snapshot.val();
+        if (lastTime != currentTime) {
+          lastTimeStamp = currentTime;
+          // タイムスタンプが更新されたのでキーコードを取りに行く
+          firebase.database().ref('key_code').once('value').then(function(snapshot) {
+              alert(snapshot.val());
+          });
+        }
+      });
     </script>
   </head>
   <body>
