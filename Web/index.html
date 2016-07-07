@@ -63,16 +63,15 @@
     <script src="./scripts/init-app.js"></script>
     <script>
       initApp(firebase);  // 初期化
-      var lastTime = 0;
-      firebase.database().ref('time_stamp').on('value', function(snapshot) {
-        var currentTime = snapshot.val();
-        if (lastTime != currentTime) {
-          lastTimeStamp = currentTime;
-          // タイムスタンプが更新されたのでキーコードを取りに行く
-          firebase.database().ref('key_code').once('value').then(function(snapshot) {
-              alert(snapshot.val());
-          });
-        }
+      var key_code = null;
+      firebase.database().ref('/key_event/time_stamp').on('value', function(snapshot) {
+        firebase.database().ref('/key_event/key_code').once('value').then(function(data) {
+          if (key_code == null) {
+            key_code = data.val();  // 1st access
+            return;
+          }
+          alert(data.val());
+        })
       });
     </script>
   </head>
