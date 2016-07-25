@@ -19,8 +19,7 @@ public class FCKeyEvent {
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("time_stamp", mTimeStamp);
-        result.put("key_code", mKeyCode);
+        result.put(String.valueOf(mKeyCode), mTimeStamp);
 
         return result;
     }

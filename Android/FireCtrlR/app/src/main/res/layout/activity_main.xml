@@ -9,18 +9,22 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.ivoryworks.firectrlr.MainActivity">
 
-    <Button
-        android:id="@+id/btn_0A"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="0x0A" />
-
-    <Button
-        android:id="@+id/btn_0B"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="0x0B"
-        android:layout_below="@+id/btn_0A"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:text="BACK"
+            />
+        <Button
+            android:id="@+id/btn_prev"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:text="PREV"
+            />
+    </LinearLayout>
 </RelativeLayout>
