@@ -1,28 +1,81 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>FireCtrlR</title>
-    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
-    <script src="./scripts/init-app.js"></script>
-    <script>
-      initApp(firebase);  // 初期化
-      var key_code = null;
-      firebase.database().ref('/key_event/time_stamp').on('value', function(snapshot) {
-        firebase.database().ref('/key_event/key_code').once('value').then(function(data) {
-          if (key_code == null) {
-            key_code = data.val();  // 1st access
-            return;
-          }
-          alert(data.val());
-        })
-      });
-    </script>
-  </head>
-  <body>
-    <h1>FireCtrlR
-  </body>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>FireCtrlR sample slide</title>
+
+		<link rel="stylesheet" href="reveal.js-3.3.0/css/reveal.css">
+		<link rel="stylesheet" href="reveal.js-3.3.0/css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="reveal.js-3.3.0/lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>Slide 1</section>
+				<section>Slide 2</section>
+			</div>
+		</div>
+
+		<script src="reveal.js-3.3.0/lib/js/head.min.js"></script>
+		<script src="reveal.js-3.3.0/js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
 </html>
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+<script src="./scripts/init-app.js"></script>
+<script>
+	initApp(firebase);
+	var lastKeyRef = firebase.database().ref('key_event/');
+	lastKeyRef.on('child_added', function(data) {
+		var code = parseInt(data.key);
+		dispatchKey(document, code);
+	});
+	lastKeyRef.on('child_changed', function(data) {
+		var code = parseInt(data.key);
+		dispatchKey(document, code);
+	});
+
+	function dispatchKey(el, key) {
+		if (document.createEventObject) {
+			var eventObj = document.createEventObject();
+			eventObj.keyCode = key;
+			el.fireEvent("onkeydown", eventObj);
+			eventObj.keyCode = key;
+		} else if(document.createEvent) {
+			var eventObj = document.createEvent("Events");
+			eventObj.initEvent("keydown", true, true);
+			eventObj.which = key;
+			eventObj.keyCode = key;
+			el.dispatchEvent(eventObj);
+		}
+	}
+</script>
